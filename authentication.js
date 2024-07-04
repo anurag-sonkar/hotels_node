@@ -23,7 +23,9 @@ const auth = async(username , password , done)=>{
             return done(null, false , {message : "Invalid Username"})
         }
 
-        const isPasswordMatch = user.password === password ? true : false
+        // const isPasswordMatch = user.password === password ? true : false
+        const isPasswordMatch = await user.comparePassword(password)
+
         if(isPasswordMatch){
             return done(null,user)
         }else{
