@@ -4,7 +4,7 @@ const Person = require("./models/person");
 
 // auth - username and password
 
-/* 1.const auth = (username , password)=>{ ........... }*/
+/* 1.const auth = (username , password ,done)=>{ ........... }*/
 
 // 2.const ref = new LocalStrategy(auth)
 // 3.passport.use(ref)
@@ -15,9 +15,8 @@ const Person = require("./models/person");
 
 /* 5. app.use(passport.initialize()) */
 
-passport.use(new LocalStrategy(async(username , password , done)=>{
-    try {
-        console.log("User Credentials" , username , password)
+const auth = async(username , password , done)=>{
+        try {
         const user = await Person.findOne({username : username})
 
         if(!user){
@@ -35,7 +34,12 @@ passport.use(new LocalStrategy(async(username , password , done)=>{
         return done(null , false , {message : error.message})
     }
 
-}))
+}
+
+const ref = new LocalStrategy(auth)
+
+passport.use(ref) //object of LocalStategy(function(username , passw , done))
+
 
 // passport.authenticate('stategy name',{session:false})
 const localAuthMiddleware =  passport.authenticate('local',{session:false})
