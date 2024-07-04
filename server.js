@@ -1,7 +1,11 @@
 const express = require("express")
 const app = express()
+require('dotenv').config();
 const bodyParser = require("body-parser")
-const PORT = 8000
+
+// PORT
+const PORT = process.env.PORT || 8000
+
 
 // mongoDb connection
 const db = require("./dbConnection")

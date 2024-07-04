@@ -1,10 +1,11 @@
+require('dotenv').config();
 const mongoose = require("mongoose")
 
 // mongodb connect
-const db_name = "hotels"
-const url = `mongodb://127.0.0.1:27017/${db_name}`
+// const mongoURL = process.env.MONGODB_URL_LOCAL
+const mongoURL =  process.env.MONGODB_URL
 
-mongoose.connect(url)
+mongoose.connect(mongoURL)
 
 
 // setup event listners
