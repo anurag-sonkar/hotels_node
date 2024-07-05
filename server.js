@@ -33,11 +33,11 @@ app.use(passport.initialize())
 
 
 // routes
-app.get('/', localAuthMiddleware, function(req,res){
+app.get('/', function(req,res){
     res.send("Welcome to my hotel...")
 })
 
-app.use('/person', localAuthMiddleware,personRoutes)
+app.use('/person',personRoutes)
 app.use('/menu', menuRoutes)
 
 

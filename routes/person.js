@@ -4,16 +4,21 @@ const {
   handlePersonCreate,
   handleFilterPersonWorkType,
   handleUpdatePersonInfo,
-  handleDeletePersonInfo
+  handleDeletePersonInfo,
+  handlePersonLogin,
+  handleShowLoggnedPersonProfile
 } = require("../controllers/person");
+const { jwtAuthMiddleware } = require("../jwt");
 const route = express.Router();
 
-// route.get('/' , handleAllPersonInfo)
-// route.post('/' , handleGetAllPersonInfo)
+route.post('/signup' ,jwtAuthMiddleware, handlePersonCreate)
+route.post('/login',jwtAuthMiddleware, handlePersonLogin)
+route.get('/profile' ,jwtAuthMiddleware, handleShowLoggnedPersonProfile)
+route.get('/' ,jwtAuthMiddleware, handleAllPersonInfo)
 
-route.route("/")
-.get(handleAllPersonInfo)
-.post(handlePersonCreate)
+// route.route("/")
+// .get(handleAllPersonInfo)
+// .post(handlePersonCreate)
 
 
 route.put('/:id' , handleUpdatePersonInfo)
